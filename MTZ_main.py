@@ -14,8 +14,8 @@ from functions import subtourSelect
 
 starttime = time.time()
 
-nodeNum = 96
-path = 'C:/academic/Graduate Paper/code/gr96.txt'
+nodeNum = 100
+path = 'C:/academic/Graduate Paper/code/kroE100.txt'
 cost = readData(path, nodeNum)
 printData(cost)
 

@@ -30,7 +30,7 @@ def subtourSelect(tourlist, method='S', measure='number', num=1):
     else:
 
         if method == 'P':
-            powset = PowerSetWithBound(tourlist, num)
+            powset = PowerSetWithBound(tourlist, 2 ** num)
             output = powset + tourlist
 
         elif method == 'POS':
@@ -45,7 +45,11 @@ def subtourSelect(tourlist, method='S', measure='number', num=1):
             powset = PowerSet(baseSet)
             output = powset + tourlist
 
-
+        elif method == 'POR':
+            random.shuffle(tourlist)
+            baseSet = tourlist[:min(num, len(tourlist))]
+            powset = PowerSet(baseSet)
+            output = powset + tourlist
 
     return output
 

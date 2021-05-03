@@ -13,6 +13,7 @@ from functions import subtour
 from functions import subtourSelect
 
 def subtourelim(model, where):
+
     if (where == GRB.Callback.MIPSOL):
         # make a list of edges selected in the solution
         #print('model._vars', model._vars)
@@ -34,9 +35,9 @@ def subtourelim(model, where):
         tours = subtourSelect(tourlist, method, measure, num)
 
         for tour in tours:
-            print('tour = ', tour)
+            #print('tour = ', tour)
             if (len(tour) < nodeNum + 1):
-                print("---add sub tour elimination constraint--")
+                #print("---add sub tour elimination constraint--")
 
                 # for i, j in itertools.combinations(tour, 2):
                 # print(i, j)
@@ -45,17 +46,15 @@ def subtourelim(model, where):
                                       for i, j in itertools.combinations(tour, 2))
                              <= len(tour) - 1)
 
-
-
 starttime = time.time()
 
-nodeNum = 99
-path = 'C:/academic/Graduate Paper/code/rat99.txt'
+nodeNum = 318
+path = 'C:/academic/Graduate Paper/code/lin318.txt'
 cost = readData(path, nodeNum)
 printData(cost)
 
-method = 'R'
-num = 0.75
+method = 'POS'
+num = 9
 measure = 'percentage'
 #measure = 'number'
 
@@ -107,7 +106,7 @@ model.addConstr(X[0 ,nodeNum] == 0, name = 'visit_' + str(0) + ',' + str(nodeNum
 # set lazy constraints
 model._vars = X
 model.Params.lazyConstraints = 1
-model.setParam('TimeLimit', 1000)
+#model.setParam('TimeLimit', 1000)
 
 model.optimize(subtourelim)
 # subProblem.optimize()
